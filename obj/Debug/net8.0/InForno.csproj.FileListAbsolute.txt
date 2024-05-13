@@ -250,3 +250,4 @@ C:\Users\marco\source\repos\InForno\bin\Debug\net8.0\runtimes\win\lib\net7.0\Mic
 C:\Users\marco\source\repos\InForno\bin\Debug\net8.0\runtimes\win\lib\net7.0\System.Drawing.Common.dll
 C:\Users\marco\source\repos\InForno\bin\Debug\net8.0\runtimes\win\lib\net7.0\System.Security.Cryptography.ProtectedData.dll
 C:\Users\marco\source\repos\InForno\bin\Debug\net8.0\runtimes\win\lib\net7.0\System.Windows.Extensions.dll
+C:\Users\marco\source\repos\InForno\obj\Debug\net8.0\InForno.sourcelink.json

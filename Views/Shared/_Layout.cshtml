@@ -31,6 +31,15 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Order" asp-action="Index">Order</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Auth" asp-action="Login">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Register">Register</a>
+                        </li>
+                        <form asp-area="" asp-controller="Auth" asp-action="Logout" method="post" id="logoutForm">
+                             <button type="submit" class="nav-link text-dark" style="background-color: transparent; border: none; cursor: pointer;">Logout</button>
+                        </form>
                     </ul>
                 </div>
             </div>
