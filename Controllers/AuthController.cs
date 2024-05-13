@@ -31,17 +31,17 @@ namespace InForno.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(User user)
         {
-            var loggedUser = _db.Users.FirstOrDefault(u => u.Username == user.Username && u.Password == user.Password);
-            if (loggedUser == null)
+            var loggedUser = await _db.Users.FirstOrDefaultAsync(u => u.Username == user.Username);
+            if (loggedUser == null || !BCrypt.Net.BCrypt.Verify(user.Password, loggedUser.Password))
             {
                 TempData["ErrorLogin"] = true;
                 return RedirectToAction("Login");
             }
 
             var claims = new List<Claim>
-            {
-                 new Claim(ClaimTypes.NameIdentifier, loggedUser.Id.ToString()),
-            };
+        {
+             new Claim(ClaimTypes.NameIdentifier, loggedUser.Id.ToString()),
+        };
 
             var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
             var authProperties = new AuthenticationProperties
@@ -56,6 +56,34 @@ namespace InForno.Controllers
 
             return RedirectToAction("Index", "Home");
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Register(User newUser)
+        {
+            if (ModelState.IsValid)
+            {
+                var existingUser = await _db.Users.FirstOrDefaultAsync(u => u.Username == newUser.Username);
+                if (existingUser != null)
+                {
+                    ModelState.AddModelError(string.Empty, "Username già in uso. Scegli un altro username.");
+                    return View(newUser);
+                }
+
+                string hashedPassword = BCrypt.Net.BCrypt.HashPassword(newUser.Password);
+
+                newUser.Password = hashedPassword;
+
+                _db.Users.Add(newUser);
+                await _db.SaveChangesAsync();
+
+                TempData["RegistrationSuccess"] = true;
+                return RedirectToAction("Login");
+            }
+
+            return View(newUser);
+        }
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
