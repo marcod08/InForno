@@ -39,9 +39,9 @@ namespace InForno.Controllers
             }
 
             var claims = new List<Claim>
-        {
-             new Claim(ClaimTypes.NameIdentifier, loggedUser.Id.ToString()),
-        };
+            {
+                new Claim(ClaimTypes.NameIdentifier, loggedUser.Id.ToString()),
+            };
 
             var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
             var authProperties = new AuthenticationProperties
