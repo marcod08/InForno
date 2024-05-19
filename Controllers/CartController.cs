@@ -16,7 +16,8 @@ namespace InForno.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            var cart = GetCart();
+            return View(cart);
         }
 
         [HttpPost]
@@ -85,9 +86,18 @@ namespace InForno.Controllers
         {
             var cookieOptions = new CookieOptions
             {
-                Expires = DateTime.Now.AddDays(7)
+                Expires = DateTime.Now.AddDays(1)
             };
             Response.Cookies.Append("cart", JsonConvert.SerializeObject(cart), cookieOptions);
+        }
+
+        [HttpPost]
+        public IActionResult ClearCart()
+        {
+            Response.Cookies.Delete("cart");
+
+            TempData["SuccessMessage"] = "Carrello svuotato";
+            return RedirectToAction("Index");
         }
 
     }

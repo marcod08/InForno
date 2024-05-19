@@ -3,5 +3,47 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<div class="container">
 
+    <h1>Carrello</h1>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success mt-3" role="alert">
+            @TempData["SuccessMessage"]
+        </div>
+    }
+
+    @if (Model.Count == 0)
+    {
+        <div class="alert alert-info mt-3" role="alert">
+            Il carrello è vuoto.
+        </div>
+    }
+    else
+    {
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Prezzo</th>
+                    <th>Quantità</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var CartItem in Model)
+                {
+                    <tr>
+                        <td>@CartItem.Name</td>
+                        <td>@CartItem.Price</td>
+                        <td>@CartItem.Quantity</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <form method="post" asp-controller="Cart" asp-action="ClearCart">
+            <button type="submit" class="btn btn-danger">Svuota Carrello</button>
+        </form>
+    }
+</div>

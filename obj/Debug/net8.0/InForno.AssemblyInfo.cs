@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("InForno")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d07e868552623efa51023cc0883562142edb8651")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+26f6d68cbad0f9e6eab5b4bc2312c614305bd6d7")]
 [assembly: System.Reflection.AssemblyProductAttribute("InForno")]
 [assembly: System.Reflection.AssemblyTitleAttribute("InForno")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
