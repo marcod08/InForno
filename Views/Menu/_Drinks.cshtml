@@ -7,6 +7,7 @@
             <th>Nome</th>
             <th>Descrizione</th>
             <th>Prezzo</th>
+            <th></th>
             <th>Elimina</th>
         </tr>
     </thead>
@@ -18,6 +19,12 @@
                 <td>@drink.Name</td>
                 <td>@drink.Description</td>
                 <td>@drink.Price Eur</td>
+                <td>
+                    <form method="post" asp-controller="Cart" asp-action="AddDrinkToCart">
+                        <input type="hidden" name="drinkId" value="@drink.Id" />
+                        <button type="submit" class="btn btn-primary">Aggiungi al carrello</button>
+                    </form>
+                </td>
                 <td>
                     <form method="post" asp-controller="Menu" asp-action="DeleteDrink">
                         <input type="hidden" name="id" value="@drink.Id" />

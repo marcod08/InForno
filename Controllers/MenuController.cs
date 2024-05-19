@@ -19,7 +19,6 @@ namespace InForno.Controllers
             return View(pizze);
         }
 
-
         public IActionResult GetPizze()
         {
             var pizze = _db.Pizze.ToList();
