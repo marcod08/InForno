@@ -1,6 +1,6 @@
 ﻿using InForno.Models;
 using Microsoft.AspNetCore.Mvc;
-using System.Globalization;
+using System.Linq;
 
 namespace InForno.Controllers
 {
@@ -12,23 +12,38 @@ namespace InForno.Controllers
         {
             _db = db;
         }
+
         public IActionResult Index()
         {
-            var pizze = _db.Pizza.ToList();
+            var pizze = _db.Pizze.ToList();
             return View(pizze);
         }
-        public IActionResult Add()
+
+
+        public IActionResult GetPizze()
+        {
+            var pizze = _db.Pizze.ToList();
+            return PartialView("_Pizze", pizze);
+        }
+
+        public IActionResult GetDrinks()
+        {
+            var drinks = _db.Drinks.ToList();
+            return PartialView("_Drinks", drinks);
+        }
+
+        public IActionResult AddPizza()
         {
             return View();
         }
 
         [HttpPost]
-        public IActionResult Add(Pizza pizza)
+        public IActionResult AddPizza(Pizza pizza)
         {
             if (ModelState.IsValid)
             {
                 pizza.Price = decimal.Parse(pizza.Price.ToString().Replace(".", ","));
-                _db.Pizza.Add(pizza);
+                _db.Pizze.Add(pizza);
                 _db.SaveChanges();
                 TempData["SuccessMessage"] = "Pizza aggiunta correttamente.";
                 ModelState.Clear();
@@ -36,15 +51,47 @@ namespace InForno.Controllers
             return View(pizza);
         }
 
-        [HttpPost]
-        public IActionResult Delete(int id)
+        public IActionResult AddDrink()
         {
-            var pizzaToDelete = _db.Pizza.Find(id);
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult AddDrink(Drink drink)
+        {
+            if (ModelState.IsValid)
+            {
+                drink.Price = decimal.Parse(drink.Price.ToString().Replace(".", ","));
+                _db.Drinks.Add(drink);
+                _db.SaveChanges();
+                TempData["SuccessMessage"] = "Bevanda aggiunta correttamente.";
+                ModelState.Clear();
+            }
+            return View(drink);
+        }
+
+        [HttpPost]
+        public IActionResult DeletePizza(int id)
+        {
+            var pizzaToDelete = _db.Pizze.Find(id);
             if (pizzaToDelete != null)
             {
-                _db.Pizza.Remove(pizzaToDelete);
+                _db.Pizze.Remove(pizzaToDelete);
                 _db.SaveChanges();
                 TempData["SuccessMessage"] = "Pizza eliminata correttamente.";
+            }
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public IActionResult DeleteDrink(int id)
+        {
+            var drinkToDelete = _db.Drinks.Find(id);
+            if (drinkToDelete != null)
+            {
+                _db.Drinks.Remove(drinkToDelete);
+                _db.SaveChanges();
+                TempData["SuccessMessage"] = "Bevanda eliminata correttamente.";
             }
             return RedirectToAction("Index");
         }

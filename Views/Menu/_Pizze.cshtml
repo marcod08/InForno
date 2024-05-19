@@ -1,0 +1,32 @@
+﻿@model IEnumerable<InForno.Models.Pizza>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Descrizione</th>
+            <th>Prezzo</th>
+            <th>Elimina</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var pizza in Model)
+        {
+            <tr>
+                <td>@pizza.Id</td>
+                <td>@pizza.Name</td>
+                <td>@pizza.Description</td>
+                <td>@pizza.Price Eur</td>
+                <td>
+                    <form method="post" asp-controller="Menu" asp-action="DeletePizza">
+                        <input type="hidden" name="id" value="@pizza.Id" />
+                        <button type="submit" class="btn btn-danger">X</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-controller="Menu" asp-action="AddPizza" class="btn btn-success">Aggiungi</a>

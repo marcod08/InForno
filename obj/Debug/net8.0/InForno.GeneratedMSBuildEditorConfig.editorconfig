@@ -42,12 +42,24 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/marco/source/repos/InForno/Views/Menu/Add.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVudVxBZGQuY3NodG1s
+[C:/Users/marco/source/repos/InForno/Views/Menu/AddDrink.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVudVxBZGREcmluay5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/marco/source/repos/InForno/Views/Menu/AddPizza.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVudVxBZGRQaXp6YS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/marco/source/repos/InForno/Views/Menu/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVudVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/marco/source/repos/InForno/Views/Menu/_Drinks.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVudVxfRHJpbmtzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/marco/source/repos/InForno/Views/Menu/_Pizze.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVudVxfUGl6emUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/marco/source/repos/InForno/Views/Order/Index.cshtml]

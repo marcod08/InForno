@@ -1,0 +1,32 @@
+﻿@model IEnumerable<InForno.Models.Drink>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Descrizione</th>
+            <th>Prezzo</th>
+            <th>Elimina</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var drink in Model)
+        {
+            <tr>
+                <td>@drink.Id</td>
+                <td>@drink.Name</td>
+                <td>@drink.Description</td>
+                <td>@drink.Price Eur</td>
+                <td>
+                    <form method="post" asp-controller="Menu" asp-action="DeleteDrink">
+                        <input type="hidden" name="id" value="@drink.Id" />
+                        <button type="submit" class="btn btn-danger">X</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-controller="Menu" asp-action="AddDrink" class="btn btn-success">Aggiungi</a>

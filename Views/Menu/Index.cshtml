@@ -1,13 +1,12 @@
-﻿
+﻿@model IEnumerable<InForno.Models.Pizza>
 @{
     ViewData["Title"] = "Index";
 }
 
 <div class="container">
-
     <div class="d-flex justify-content-between align-items-center">
-        <h1>Menu Pizze</h1>
-        <a asp-controller="Menu" asp-action="Add" class="btn btn-success">+</a>
+        <h1>Menu</h1>
+
     </div>
 
     @if (TempData["SuccessMessage"] != null)
@@ -16,35 +15,28 @@
             @TempData["SuccessMessage"]
         </div>
     }
-    
-    <div class="table-responsive mt-3">
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nome</th>
-                    <th>Descrizione</th>
-                    <th>Prezzo</th>
-                    <th>Elimina</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var pizza in Model)
-                {
-                    <tr>
-                        <td>@pizza.Id</td>
-                        <td>@pizza.Name</td>
-                        <td>@pizza.Description</td>
-                        <td>@pizza.Price Eur</td>
-                        <td>
-                            <form method="post" asp-controller="Menu" asp-action="Delete">
-                                <input type="hidden" name="id" value="@pizza.Id" />
-                                <button type="submit" class="btn btn-danger">X</button>
-                            </form>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+
+    <div class="mt-3">
+        <button class="btn btn-primary" onclick="loadCategory('GetPizze')">Pizze</button>
+        <button class="btn btn-primary" onclick="loadCategory('GetDrinks')">Drinks</button>
+    </div>
+
+    <div id="categoryContent" class="table-responsive mt-3">
+        <partial name="_Pizze" model="Model" />
     </div>
 </div>
+
+@section Scripts {
+    <script>
+        function loadCategory(action) {
+            var url = '/Menu/' + action;
+            $.ajax({
+                url: url,
+                type: 'GET',
+                success: function (data) {
+                    $('#categoryContent').html(data);
+                }
+            });
+        }
+    </script>
+}

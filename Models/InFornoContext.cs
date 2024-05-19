@@ -21,7 +21,7 @@ public partial class InFornoContext : DbContext
 
     public virtual DbSet<Order> Orders { get; set; }
 
-    public virtual DbSet<Pizza> Pizza { get; set; }
+    public virtual DbSet<Pizza> Pizze { get; set; }
 
     public virtual DbSet<User> Users { get; set; }
 
