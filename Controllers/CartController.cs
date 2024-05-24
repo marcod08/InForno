@@ -31,13 +31,22 @@ namespace InForno.Controllers
             }
 
             var cart = GetCart();
-            cart.Add(new CartItem
+            var existingItem = cart.FirstOrDefault(item => item.PizzaId == pizza.Id);
+
+            if (existingItem != null)
             {
-                PizzaId = pizza.Id,
-                Name = pizza.Name,
-                Price = pizza.Price,
-                Quantity = 1
-            });
+                existingItem.Quantity++;
+            }
+            else
+            {
+                cart.Add(new CartItem
+                {
+                    PizzaId = pizza.Id,
+                    Name = pizza.Name,
+                    Price = pizza.Price,
+                    Quantity = 1
+                });
+            }
 
             SaveCart(cart);
 
@@ -56,13 +65,22 @@ namespace InForno.Controllers
             }
 
             var cart = GetCart();
-            cart.Add(new CartItem
+            var existingItem = cart.FirstOrDefault(item => item.DrinkId == drink.Id);
+
+            if (existingItem != null)
             {
-                DrinkId = drink.Id,
-                Name = drink.Name,
-                Price = drink.Price,
-                Quantity = 1
-            });
+                existingItem.Quantity++;
+            }
+            else
+            {
+                cart.Add(new CartItem
+                {
+                    DrinkId = drink.Id,
+                    Name = drink.Name,
+                    Price = drink.Price,
+                    Quantity = 1
+                });
+            }
 
             SaveCart(cart);
 
@@ -97,6 +115,45 @@ namespace InForno.Controllers
             Response.Cookies.Delete("cart");
 
             TempData["SuccessMessage"] = "Carrello svuotato";
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public IActionResult UpdateQuantity(int id, string action)
+        {
+            var cart = GetCart();
+            var item = cart.FirstOrDefault(x => x.PizzaId == id || x.DrinkId == id);
+
+            if (item != null)
+            {
+                if (action == "increase")
+                {
+                    item.Quantity++;
+                }
+                else if (action == "decrease" && item.Quantity > 1)
+                {
+                    item.Quantity--;
+                }
+            }
+
+            SaveCart(cart);
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public IActionResult RemoveItem(int id)
+        {
+            var cart = GetCart();
+            var item = cart.FirstOrDefault(x => x.PizzaId == id || x.DrinkId == id);
+
+            if (item != null)
+            {
+                cart.Remove(item);
+            }
+
+            SaveCart(cart);
+
             return RedirectToAction("Index");
         }
 

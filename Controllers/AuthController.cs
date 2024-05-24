@@ -41,6 +41,8 @@ namespace InForno.Controllers
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.NameIdentifier, loggedUser.Id.ToString()),
+                new Claim(ClaimTypes.Name, loggedUser.Username),
+                new Claim(ClaimTypes.Role, loggedUser.Role)
             };
 
             var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);

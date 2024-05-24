@@ -1,5 +1,9 @@
 ﻿@model IEnumerable<InForno.Models.Drink>
 
+@{
+    bool isAdmin = User.Identity.IsAuthenticated && User.IsInRole("admin");
+}
+
 <table class="table table-striped">
     <thead>
         <tr>
@@ -8,7 +12,10 @@
             <th>Descrizione</th>
             <th>Prezzo</th>
             <th></th>
-            <th>Elimina</th>
+            @if (isAdmin)
+            {
+                <th>Elimina</th>
+            }
         </tr>
     </thead>
     <tbody>
@@ -18,22 +25,28 @@
                 <td>@drink.Id</td>
                 <td>@drink.Name</td>
                 <td>@drink.Description</td>
-                <td>@drink.Price Eur</td>
+                <td>@drink.Price.ToString("C")</td>
                 <td>
                     <form method="post" asp-controller="Cart" asp-action="AddDrinkToCart">
                         <input type="hidden" name="drinkId" value="@drink.Id" />
                         <button type="submit" class="btn btn-primary">Aggiungi al carrello</button>
                     </form>
                 </td>
-                <td>
-                    <form method="post" asp-controller="Menu" asp-action="DeleteDrink">
-                        <input type="hidden" name="id" value="@drink.Id" />
-                        <button type="submit" class="btn btn-danger">X</button>
-                    </form>
-                </td>
+                @if (isAdmin)
+                {
+                    <td>
+                        <form method="post" asp-controller="Menu" asp-action="DeleteDrink">
+                            <input type="hidden" name="id" value="@drink.Id" />
+                            <button type="submit" class="btn btn-danger">X</button>
+                        </form>
+                    </td>
+                }
             </tr>
         }
     </tbody>
 </table>
 
-<a asp-controller="Menu" asp-action="AddDrink" class="btn btn-success">Aggiungi</a>
+@if (isAdmin)
+{
+    <a asp-controller="Menu" asp-action="AddDrink" class="btn btn-success">Aggiungi</a>
+}

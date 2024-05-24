@@ -1,4 +1,5 @@
 ﻿using InForno.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 
@@ -31,11 +32,13 @@ namespace InForno.Controllers
             return PartialView("_Drinks", drinks);
         }
 
+        [Authorize(Roles = "admin")]
         public IActionResult AddPizza()
         {
             return View();
         }
 
+        [Authorize(Roles = "admin")]
         [HttpPost]
         public IActionResult AddPizza(Pizza pizza)
         {
@@ -50,11 +53,13 @@ namespace InForno.Controllers
             return View(pizza);
         }
 
+        [Authorize(Roles = "admin")]
         public IActionResult AddDrink()
         {
             return View();
         }
 
+        [Authorize(Roles = "admin")]
         [HttpPost]
         public IActionResult AddDrink(Drink drink)
         {
@@ -69,6 +74,7 @@ namespace InForno.Controllers
             return View(drink);
         }
 
+        [Authorize(Roles = "admin")]
         [HttpPost]
         public IActionResult DeletePizza(int id)
         {
@@ -82,6 +88,7 @@ namespace InForno.Controllers
             return RedirectToAction("Index");
         }
 
+        [Authorize(Roles = "admin")]
         [HttpPost]
         public IActionResult DeleteDrink(int id)
         {

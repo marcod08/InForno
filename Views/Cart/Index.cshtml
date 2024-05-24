@@ -1,6 +1,7 @@
 ﻿
 @{
     ViewData["Title"] = "Index";
+    decimal total = 0;
 }
 
 <div class="container">
@@ -28,19 +29,39 @@
                     <th>Nome</th>
                     <th>Prezzo</th>
                     <th>Quantità</th>
+                    <th>Subtotale</th>
+                    <th>Elimina</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var CartItem in Model)
                 {
+                    var subtotal = CartItem.Price * CartItem.Quantity;
+                    total += subtotal;
                     <tr>
                         <td>@CartItem.Name</td>
-                        <td>@CartItem.Price</td>
-                        <td>@CartItem.Quantity</td>
+                        <td>@CartItem.Price.ToString("C")</td>
+                        <td>
+                            <form method="post" asp-controller="Cart" asp-action="UpdateQuantity">
+                                <input type="hidden" name="id" value="@CartItem.PizzaId" />
+                                <button type="submit" name="action" value="decrease" class="btn btn-sm btn-secondary">-</button>
+                                @CartItem.Quantity
+                                <button type="submit" name="action" value="increase" class="btn btn-sm btn-secondary">+</button>
+                            </form>
+                        </td>
+                        <td>@subtotal.ToString("C")</td>
+                        <td>
+                            <form method="post" asp-controller="Cart" asp-action="RemoveItem">
+                                <input type="hidden" name="id" value="@CartItem.PizzaId" />
+                                <button type="submit" class="btn btn-sm btn-danger">X</button>
+                            </form>
+                        </td>
                     </tr>
                 }
             </tbody>
         </table>
+
+        <h3>Totale: @total.ToString("C") </h3>
 
         <form method="post" asp-controller="Cart" asp-action="ClearCart">
             <button type="submit" class="btn btn-danger">Svuota Carrello</button>

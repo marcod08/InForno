@@ -22,6 +22,9 @@ builder.Services.AddAuthorization(options =>
 {
     options.AddPolicy("RequireLoggedIn", policy =>
         policy.RequireAuthenticatedUser());
+
+    options.AddPolicy("AdminOnly", policy => policy.RequireRole("admin"));
+    options.AddPolicy("UserOnly", policy => policy.RequireRole("user"));
 });
 
 var app = builder.Build();
